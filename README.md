@@ -1,28 +1,68 @@
-# Getting Started With Schematics
+# What is this for?
 
-This repository is a basic Schematic implementation that serves as a starting point to create and publish Schematics to NPM.
+This repository allows you to split your `angular.json`, `nx.json` and `tsconfig.json` into multiple files in many directories (apps, libs, etc). This is meant to avoid multiple lines of code on the same file and conflicts.
 
-### Testing
+## How does it work?
 
-To test locally, install `@angular-devkit/schematics-cli` globally and use the `schematics` command line tool. That tool acts the same as the `generate` command of the Angular CLI, but also has a debug mode.
+In your project root, you'll need to configure `*.base.json` files.
 
-Check the documentation with
-```bash
-schematics --help
+- `angular.base.json`
+- `nx.base.json`
+- `tsconfig.base.json`
+
+Essentially, these files will be a copy of your current respective files. This base file is meant to hold everything that won't change adding a lib or an app, configurations and so on.
+
+### **IMPORTANT:** To avoid further conflicts on the original files, you should put `tsconfig`, `nx` and `angular.json` file on `.gitignore`
+
+After configuring base files, you'll need to create inside the lib/app directory a file called `project.config.json`, if your lib is called **ui-kit**, then here's a example of a `project.config.json` for your lib
+
+```JSON
+{
+  "angular": {
+    "ui-kit": {
+      // angular.json stuff inside 'projects'
+    }
+  },
+  "nx": {
+    "ui-kit: { "tags": [] }
+  },
+  "tsconfig": {
+    // stuff inside `compilerOptions.paths`
+    "@org/ui-kit": [ "paths/ui-kit/index" ]
+  }
+}
 ```
 
-### Unit Testing
+## **Finally**,
 
-`npm run test` will run the unit tests, using Jasmine as a runner and test framework.
+To concatenate everything run the schematic command:
 
-### Publishing
-
-To publish, simply do:
-
-```bash
-npm run build
-npm publish
+```
+ng generate @eliasao/nx-project-splitter:splitter
 ```
 
-That's it!
- 
+I recommend you to run this command before any `serve`, `build`, `generate` command to ensure you'll always have your files updated.
+
+## Adding it to Nx-workspace schematic to generate libs and apps with this feature
+
+```TYPESCRIPT
+import { writeProjectConfigFiles } from '@eliasao/nx-project-splitter/commons';
+
+function writeProjectConfigFiles(
+  schema: any,
+  rootDirectory: string,
+  fileName: string,
+  keyPath: string = 'projects'
+)
+
+export default function(schema: any): Rule {
+  return chain([
+    externalSchematic('@nrwl/angular', 'lib', {
+      name: schema.name
+    }),
+    writeProjectConfigFiles(schema, 'libs', 'nx'),
+    writeProjectConfigFiles(schema, 'libs', 'angular'),
+    writeProjectConfigFiles(schema, 'libs', 'tsconfig', 'compilerOptions.paths')
+  ]);
+}
+```

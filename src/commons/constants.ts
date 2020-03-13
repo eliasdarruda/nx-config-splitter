@@ -1,1 +1,1 @@
-export const CONFIG_FILE_NAME = 'project.configuration.json';
+export const CONFIG_FILE_NAME = 'project.config.json';

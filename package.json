@@ -1,23 +1,24 @@
 {
   "name": "@eliasao/nx-project-splitter",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Allows you to split your angular.json, nx.json and tsconfig.json file into multiple directories",
   "scripts": {
     "build": "tsc -p tsconfig.json",
-    "test": "npm run build && jasmine src/**/*_spec.js"
+    "test": "npm run build && jest \"src/.*\\.spec\\.js\""
   },
   "keywords": [
     "schematics"
   ],
-  "author": "",
+  "author": "Elias Dal Ben Arruda",
   "license": "MIT",
   "schematics": "./src/collection.json",
   "dependencies": {
-    "@angular-devkit/core": "^8.1.2",
-    "@angular-devkit/schematics": "^8.1.2",
-    "@types/jasmine": "^3.3.9",
+    "@angular-devkit/core": "^9.0.6",
+    "@angular-devkit/schematics": "^9.0.6",
+    "@types/glob": "^7.1.1",
+    "@types/jest": "^25.1.4",
     "@types/node": "^8.0.31",
-    "jasmine": "^3.3.1",
+    "jest": "^25.1.0",
     "typescript": "~3.4.3"
   }
 }

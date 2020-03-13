@@ -1,7 +1,7 @@
 import { Rule, Tree, noop } from '@angular-devkit/schematics';
-import * as Path from 'path';
-import { dasherize } from '@angular-devkit/core/src/utils/strings';
 import { CONFIG_FILE_NAME } from './constants';
+import { dasherize } from '@angular-devkit/core/src/utils/strings';
+import * as Path from 'path';
 
 export interface ProjectConfigFile {
   angular: any;
@@ -10,11 +10,37 @@ export interface ProjectConfigFile {
   [key:string]: any;
 }
 
-export function addProjectConfigurationFiles(
+/**
+ * Get/set an index of an object based on match dot string
+ * @param obj Referenced obj
+ * @param match Match string with dots. Ex: compilerOptions.paths
+ * @param value Set value to referenced object
+ */
+export function indexObj(obj: any, match: string | string[], value?: any): any {
+  if (typeof match == 'string')
+    return indexObj(obj, match.split('.'), value);
+
+  if (match.length == 1 && value !== undefined)
+    return obj[match[0]] = value;
+
+  if (match.length == 0)
+    return obj;
+  
+  return indexObj(obj[match[0]], match.slice(1), value);
+}
+
+/**
+ * Writes in project.config.json based on previous creation schematic
+ * @param schema options - must contain a name attribute
+ * @param rootDirectory root directory that lib would be created, example: libs, apps
+ * @param fileName angular, nx or tsconfig available
+ * @param keyPath object key to global file input, example: projects, compilerOptions.paths
+ */
+export function writeProjectConfigFiles(
   schema: any,
   rootDirectory: string,
   fileName: string,
-  keyPath: string = ''
+  keyPath: string = 'projects'
 ): Rule {
   const fileBase: ProjectConfigFile = {
     angular: {},
@@ -24,34 +50,32 @@ export function addProjectConfigurationFiles(
 
   return (tree: Tree) => {
     const resultPath = Path.join(rootDirectory, dasherize(schema.name));
-    const projectFile = `${resultPath}/${CONFIG_FILE_NAME}`;
+    const projectFile = Path.join(resultPath, CONFIG_FILE_NAME);
     const npmScope: string = JSON.parse(tree.read('nx.json') as any).npmScope;
     const fileContent: any = JSON.parse(tree.read(`${fileName}.json`) as any);
 
     let name = dasherize(schema.name).replace(/\//g, '-');
-
-    let prj = fileContent.projects && fileContent.projects[name];
-    if (keyPath) {
-      const value = keyPath.split('.').reduce(function(a, b) {
-        return a[b];
-      }, fileContent);
-
+    if (keyPath.indexOf('compilerOptions') > -1) {
       name = `@${npmScope}/${dasherize(schema.name)}`;
-      prj = value[name];
     }
 
+    const prjData = indexObj(fileContent, keyPath)[name];
     if (tree.exists(projectFile)) {
       const projectContent: any = JSON.parse(tree.read(projectFile) as any);
 
-      projectContent[fileName] = { [name]: prj };
+      projectContent[fileName] = { [name]: prjData };
 
       tree.overwrite(projectFile, JSON.stringify(projectContent, null, 2));
       return noop;
     }
 
-    fileBase[fileName] = { [name]: prj };
+    fileBase[fileName] = { [name]: prjData };
     tree.create(projectFile, JSON.stringify(fileBase, null, 2));
 
     return noop;
   };
 }
+
+export function writeProjectConfigFilesCaller(_options: any): Rule {
+  return writeProjectConfigFiles(_options, _options.rootDirectory, _options.fileName, _options.keyPath)
+};

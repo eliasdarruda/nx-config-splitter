@@ -1,0 +1,15 @@
+{
+  "angular": {
+    "project2": {
+      "data": "FFFF"
+    }
+  },
+  "nx": {
+    "project2": {
+      "data": "FFFF"
+    }
+  },
+  "tsconfig": {
+    "@org/project2": ["org/project2/whatever"]
+  }
+}

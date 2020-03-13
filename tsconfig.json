@@ -17,7 +17,7 @@
     "sourceMap": true,
     "strictNullChecks": true,
     "target": "es6",
-    "types": ["jasmine", "node"],
+    "types": ["jest", "node"],
     "paths": {
       "@eliasao/nx-project-splitter/commons": ["src/commons/index.ts"]
     }
