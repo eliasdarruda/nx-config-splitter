@@ -2,6 +2,12 @@
 
 This repository allows you to split your `angular.json`, `nx.json` and `tsconfig.json` into multiple files in many directories (apps, libs, etc). This is meant to avoid multiple lines of code on the same file and conflicts.
 
+## Installation
+
+```
+npm install ngx-config-splitter --save
+```
+
 ## How does it work?
 
 In your project root, you'll need to configure `*.base.json` files.

@@ -4,7 +4,8 @@
   "description": "Allows you to split your angular.json, nx.json and tsconfig.json file into multiple directories",
   "scripts": {
     "build": "tsc -p tsconfig.json",
-    "test": "npm run build && jest \"src/.*\\.spec\\.js\""
+    "test": "npm run build && jest \"src/.*\\.spec\\.js\"",
+    "coveralls": "npm run build && jest \"src/.*\\.spec\\.js\" --coverage && cat ./coverage/lcov.info | coveralls"
   },
   "repository": {
     "type": "git",
@@ -26,5 +27,9 @@
     "@types/node": "^8.0.31",
     "jest": "^25.1.0",
     "typescript": "~3.4.3"
+  },
+  "devDependencies": {
+    "coveralls": "^3.0.9",
+    "minimist": ">=1.2.2"
   }
 }
