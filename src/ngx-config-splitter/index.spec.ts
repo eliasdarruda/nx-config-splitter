@@ -6,7 +6,7 @@ import * as path from 'path';
 const collectionPath = path.join(__dirname, '../test/collection.mock.json');
 const collectionPathOriginal = path.join(__dirname, '../collection.json');
 
-describe('ngx-config-splitter', () => {
+describe('nx-config-splitter', () => {
   const mockConfig: ProjectConfigFile = {
     angular: {
       project1: {

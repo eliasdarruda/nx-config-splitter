@@ -3,7 +3,7 @@
   "schematics": {
     "merge": {
       "description": "Allows you to split your angular.json, nx.json and tsconfig.json file into multiple directories",
-      "factory": "../ngx-config-splitter/index#nxProjectSplitterMock"
+      "factory": "../nx-config-splitter/index#nxProjectSplitterMock"
     },
     "writer": {
       "description": "Allows you to write to your project.config.json files",

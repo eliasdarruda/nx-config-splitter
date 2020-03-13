@@ -1,3 +1,5 @@
+[![Coverage Status](https://coveralls.io/repos/github/eliasdarruda/nx-config-splitter/badge.svg?branch=master)](https://coveralls.io/github/eliasdarruda/nx-config-splitter?branch=master)
+
 # What is this for?
 
 This repository allows you to split your `angular.json`, `nx.json` and `tsconfig.json` into multiple files in many directories (apps, libs, etc). This is meant to avoid multiple lines of code on the same file and conflicts.
@@ -5,7 +7,7 @@ This repository allows you to split your `angular.json`, `nx.json` and `tsconfig
 ## Installation
 
 ```
-npm install ngx-config-splitter --save
+npm install nx-config-splitter --save
 ```
 
 ## How does it work?
@@ -44,7 +46,7 @@ After configuring base files, you'll need to create inside the lib/app directory
 To concatenate everything run the schematic command:
 
 ```
-ng generate ngx-config-splitter:merge
+ng generate nx-config-splitter:merge
 ```
 
 I recommend you to run this command before any `serve`, `build`, `generate` command to ensure you'll always have your files updated.
@@ -52,7 +54,7 @@ I recommend you to run this command before any `serve`, `build`, `generate` comm
 ## Adding it to Nx-workspace schematic to generate libs and apps with this feature
 
 ```TYPESCRIPT
-import { writeProjectConfigFiles } from 'ngx-config-splitter';
+import { writeProjectConfigFiles } from 'nx-config-splitter';
 
 function writeProjectConfigFiles(
   schema: any,
