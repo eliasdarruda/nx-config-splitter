@@ -19,6 +19,9 @@
   "author": "Elias Dal Ben Arruda",
   "license": "MIT",
   "schematics": "./src/collection.json",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
   "dependencies": {
     "@angular-devkit/core": "^9.0.6",
     "@angular-devkit/schematics": "^9.0.6",
