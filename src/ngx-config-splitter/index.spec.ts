@@ -6,7 +6,7 @@ import * as path from 'path';
 const collectionPath = path.join(__dirname, '../test/collection.mock.json');
 const collectionPathOriginal = path.join(__dirname, '../collection.json');
 
-describe('nx-project-splitter', () => {
+describe('ngx-config-splitter', () => {
   const mockConfig: ProjectConfigFile = {
     angular: {
       project1: {
@@ -36,14 +36,14 @@ describe('nx-project-splitter', () => {
 
     testTree.delete('project.config.json');
 
-    runner.runSchematicAsync('splitter', {}, testTree).subscribe({
+    runner.runSchematicAsync('merge', {}, testTree).subscribe({
       next: (t) => expect(t).toBe(true)
     });
   });
 
   it('should smoke test original file', async () => {
     const runner = new SchematicTestRunner('schematics', collectionPathOriginal);
-    runner.runSchematicAsync('splitter', {}, testTree).subscribe({
+    runner.runSchematicAsync('merge', {}, testTree).subscribe({
       next: () => expect(true).toBe(true)
     });
   });
@@ -57,7 +57,7 @@ describe('nx-project-splitter', () => {
   
     testTree.create('angular.base.json', JSON.stringify(angularBaseFile));
 
-    runner.runSchematicAsync('splitter', {}, testTree).subscribe({
+    runner.runSchematicAsync('merge', {}, testTree).subscribe({
       next: (tree) => {
         const projectsGenerated = JSON.parse(tree.readContent('angular.json')).projects;
         
@@ -77,7 +77,7 @@ describe('nx-project-splitter', () => {
   
     testTree.create('angular.base.json', JSON.stringify(angularBaseFile));
 
-    runner.runSchematicAsync('splitter', {}, testTree).subscribe({
+    runner.runSchematicAsync('merge', {}, testTree).subscribe({
       next: (tree) => {
         const projectsGenerated = JSON.parse(tree.readContent('angular.json')).projects;
 
@@ -96,7 +96,7 @@ describe('nx-project-splitter', () => {
   
     testTree.create('nx.base.json', JSON.stringify(nxBaseFile));
 
-    runner.runSchematicAsync('splitter', {}, testTree).subscribe({
+    runner.runSchematicAsync('merge', {}, testTree).subscribe({
       next: (tree) => {
         const projectsGenerated = JSON.parse(tree.readContent('nx.json')).projects;
 
@@ -116,7 +116,7 @@ describe('nx-project-splitter', () => {
   
     testTree.create('nx.base.json', JSON.stringify(nxBaseFile));
 
-    runner.runSchematicAsync('splitter', {}, testTree).subscribe({
+    runner.runSchematicAsync('merge', {}, testTree).subscribe({
       next: (tree) => {
         const projectsGenerated = JSON.parse(tree.readContent('nx.json')).projects;
 
@@ -137,7 +137,7 @@ describe('nx-project-splitter', () => {
   
     testTree.create('tsconfig.base.json', JSON.stringify(tsconfigBaseFile));
 
-    runner.runSchematicAsync('splitter', {}, testTree).subscribe({
+    runner.runSchematicAsync('merge', {}, testTree).subscribe({
       next: (tree) => {
         const projectsGenerated = JSON.parse(tree.readContent('tsconfig.json')).compilerOptions.paths;
 
@@ -161,7 +161,7 @@ describe('nx-project-splitter', () => {
   
     testTree.create('tsconfig.base.json', JSON.stringify(tsconfigBaseFile));
 
-    runner.runSchematicAsync('splitter', {}, testTree).subscribe({
+    runner.runSchematicAsync('merge', {}, testTree).subscribe({
       next: (tree) => {
         const projectsGenerated = JSON.parse(tree.readContent('tsconfig.json')).compilerOptions.paths;
 
@@ -181,7 +181,7 @@ describe('nx-project-splitter', () => {
     testTree.create('nx.base.json', JSON.stringify(nxBaseFile));
     testTree.create('nx.json', JSON.stringify({}));
 
-    runner.runSchematicAsync('splitter', {}, testTree).subscribe({
+    runner.runSchematicAsync('merge', {}, testTree).subscribe({
       next: (tree) => {
         const projectsGenerated = JSON.parse(tree.readContent('nx.json')).projects;
 

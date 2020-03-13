@@ -1,5 +1,5 @@
 {
-  "name": "@eliasao/nx-project-splitter",
+  "name": "ngx-config-splitter",
   "version": "0.0.1",
   "description": "Allows you to split your angular.json, nx.json and tsconfig.json file into multiple directories",
   "scripts": {

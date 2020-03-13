@@ -38,7 +38,7 @@ After configuring base files, you'll need to create inside the lib/app directory
 To concatenate everything run the schematic command:
 
 ```
-ng generate @eliasao/nx-project-splitter:splitter
+ng generate ngx-config-splitter:merge
 ```
 
 I recommend you to run this command before any `serve`, `build`, `generate` command to ensure you'll always have your files updated.
@@ -46,7 +46,7 @@ I recommend you to run this command before any `serve`, `build`, `generate` comm
 ## Adding it to Nx-workspace schematic to generate libs and apps with this feature
 
 ```TYPESCRIPT
-import { writeProjectConfigFiles } from '@eliasao/nx-project-splitter/commons';
+import { writeProjectConfigFiles } from 'ngx-config-splitter';
 
 function writeProjectConfigFiles(
   schema: any,
