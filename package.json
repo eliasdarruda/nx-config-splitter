@@ -6,6 +6,10 @@
     "build": "tsc -p tsconfig.json",
     "test": "npm run build && jest \"src/.*\\.spec\\.js\""
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/eliasdarruda/ngx-config-splitter.git"
+  },
   "keywords": [
     "schematics"
   ],
