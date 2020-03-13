@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.com/eliasdarruda/ngx-config-splitter.svg?branch=master)](https://travis-ci.com/eliasdarruda/ngx-config-splitter)
 [![Coverage Status](https://coveralls.io/repos/github/eliasdarruda/nx-config-splitter/badge.svg?branch=master)](https://coveralls.io/github/eliasdarruda/nx-config-splitter?branch=master)
 
 # What is this for?
