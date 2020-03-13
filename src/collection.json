@@ -1,0 +1,9 @@
+{
+  "$schema": "../node_modules/@angular-devkit/schematics/collection-schema.json",
+  "schematics": {
+    "splitter": {
+      "description": "Allows you to split your angular.json, nx.json and tsconfig.json file into multiple directories",
+      "factory": "./nx-project-splitter/index#nxProjectSplitter"
+    }
+  }
+}
