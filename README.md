@@ -16,7 +16,7 @@ Essentially, these files will be a copy of your current respective files. This b
 
 After configuring base files, you'll need to create inside the lib/app directory a file called `project.config.json`, if your lib is called **ui-kit**, then here's a example of a `project.config.json` for your lib
 
-```JSON
+```
 {
   "angular": {
     "ui-kit": {
