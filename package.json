@@ -9,6 +9,8 @@
   "keywords": [
     "schematics"
   ],
+  "main": "src/commons/index.js",
+  "types": "src/commons/index.d.ts",
   "author": "Elias Dal Ben Arruda",
   "license": "MIT",
   "schematics": "./src/collection.json",
