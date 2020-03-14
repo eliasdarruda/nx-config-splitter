@@ -52,7 +52,9 @@ ng generate nx-config-splitter:merge
 
 I recommend you to run this command before any `serve`, `build`, `generate` command to ensure you'll always have your files updated.
 
-## Adding it to Nx-workspace schematic to generate libs and apps with this feature
+## Adding `project.config.json` in your projects automatically
+
+You need to use `writeProjectConfigFiles` function in a custom schematic after your lib/app generate schematic.
 
 ```TYPESCRIPT
 import { writeProjectConfigFiles } from 'nx-config-splitter';
@@ -70,7 +72,8 @@ export default function(schema: any): Rule {
       name: schema.name
     }),
     writeProjectConfigFiles(schema, 'libs', 'nx'),
-    writeProjectConfigFiles(schema, 'libs', 'angular'),
+    // If it is for app schematic use 'apps' folder
+    writeProjectConfigFiles(schema, 'apps', 'angular', 'projects'),
     writeProjectConfigFiles(schema, 'libs', 'tsconfig', 'compilerOptions.paths')
   ]);
 }
