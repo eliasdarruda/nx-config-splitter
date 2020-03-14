@@ -21,7 +21,7 @@ In your project root, you'll need to configure `*.base.json` files.
 
 Essentially, these files will be a copy of your current respective files. This base file is meant to hold everything that won't change adding a lib or an app, configurations and so on.
 
-### **IMPORTANT:** To avoid further conflicts on the original files, you should put `tsconfig`, `nx` and `angular.json` file on `.gitignore`
+### **IMPORTANT:** To avoid further conflicts on the original files, you should put `tsconfig.json`, `nx.json` and `angular.json` files on `.gitignore`
 
 After configuring base files, you'll need to create inside the lib/app directory a file called `project.config.json`, if your lib is called **ui-kit**, then here's a example of a `project.config.json` for your lib
 
@@ -50,7 +50,7 @@ To concatenate everything run the schematic command:
 ng generate nx-config-splitter:merge
 ```
 
-I recommend you to run this command before any `serve`, `build`, `generate` command to ensure you'll always have your files updated.
+I recommend you to run this command before any `serve`, `build`, `generate` command to ensure you'll always have your configuration files updated.
 
 ## Adding `project.config.json` in your projects automatically
 
