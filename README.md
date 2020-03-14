@@ -44,7 +44,7 @@ After configuring base files, you'll need to create inside the lib/app directory
 
 ## **Finally**,
 
-To concatenate everything run the schematic command:
+To concatenate every `project.config.json` into `nx.json`, `angular.json` and `tsconfig.json` files run the schematic command:
 
 ```
 ng generate nx-config-splitter:merge
