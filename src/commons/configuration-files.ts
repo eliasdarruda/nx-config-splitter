@@ -7,6 +7,7 @@ export interface ProjectConfigFile {
   angular: any;
   nx: any;
   tsconfig: any;
+  workspace?: any;
   [key:string]: any;
 }
 
@@ -45,6 +46,7 @@ export function writeProjectConfigFiles(
   const fileBase: ProjectConfigFile = {
     angular: {},
     nx: {},
+    workspace: {},
     tsconfig: {}
   };
 

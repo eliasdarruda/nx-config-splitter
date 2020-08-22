@@ -33,6 +33,15 @@ describe('integration', () => {
         }
       }
     ));
+    testTree.create('workspace.json', JSON.stringify(
+      {
+        projects: {
+          project2: {
+            mock: true
+          }
+        }
+      }
+    ));
   });
 
   it('should write to tsconfig project config file', async () => {
@@ -89,6 +98,7 @@ describe('integration', () => {
           data: "FFFF"
         }
       },
+      workspace: {},
       nx: {
         project2: {
           data: true
@@ -111,5 +121,55 @@ describe('integration', () => {
     expect(data.angular.project2.mock).toBe(true);
     expect(data.nx.project2.data).toBe(true);
     expect(data.angular.project1).toBeUndefined();
+    expect(data.workspace.project2).toBeUndefined();
+  });
+
+  it('should write to workspace project config file', async () => {
+    const runner = new SchematicTestRunner('schematics', collectionPath);
+
+    const tree = runner.runSchematic('writer', {
+      rootDirectory: 'apps',
+      fileName: 'workspace',
+      name: 'project2',
+      keyPath: 'projects',
+    }, testTree);
+
+    const data = JSON.parse(tree.read('apps/project2/project.config.json') as any) as ProjectConfigFile;
+
+    expect(data.workspace.project2.mock).toBe(true);
+  });
+
+  it('should write to existing workspace project config file', async () => {
+    const runner = new SchematicTestRunner('schematics', collectionPath);
+
+    testTree.create('apps/project2/project.config.json', JSON.stringify({
+      workspace: {
+        project2: {
+          data: "FFFF"
+        }
+      },
+      angular: {},
+      nx: {
+        project2: {
+          data: true
+        }
+      },
+      tsconfig: {
+        "@org/project2": ["org/project2/whatever"]
+      }
+    }));
+
+    const tree = runner.runSchematic('writer', {
+      rootDirectory: 'apps',
+      fileName: 'workspace',
+      keyPath: 'projects',
+      name: 'project2'
+    }, testTree);
+
+    const data = JSON.parse(tree.read('apps/project2/project.config.json') as any) as ProjectConfigFile;
+
+    expect(data.workspace.project2.mock).toBe(true);
+    expect(data.nx.project2.data).toBe(true);
+    expect(data.angular.project2).toBeUndefined();
   });
 });

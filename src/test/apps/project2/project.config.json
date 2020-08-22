@@ -9,6 +9,7 @@
       "data": "FFFF"
     }
   },
+  "workspace": {},
   "tsconfig": {
     "@org/project2": ["org/project2/whatever"]
   }

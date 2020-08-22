@@ -3,7 +3,7 @@
 
 # What is this for?
 
-This repository allows you to split your `angular.json`, `nx.json` and `tsconfig.json` into multiple files in many directories (apps, libs, etc). This is meant to avoid multiple lines of code on the same file and conflicts.
+This repository allows you to split your `angular.json`, `workspace.json`, `nx.json` and `tsconfig.json` into multiple files in many directories (apps, libs, etc). This is meant to avoid multiple lines of code on the same file and conflicts.
 
 ## Installation
 
@@ -16,6 +16,7 @@ npm install nx-config-splitter --save
 In your project root, you'll need to configure `*.base.json` files.
 
 - `angular.base.json`
+- `workspace.base.json` - only if needed
 - `nx.base.json`
 - `tsconfig.base.json`
 
@@ -38,16 +39,27 @@ After configuring base files, you'll need to create inside the lib/app directory
   "tsconfig": {
     // stuff inside `compilerOptions.paths`
     "@org/ui-kit": [ "paths/ui-kit/index" ]
+  },
+  workspace: {
+    "ui-kit": {
+      // workspace.json stuff inside 'projects'
+    }
   }
 }
 ```
 
+Note that `workspace` key is used only on NX non-angular projects, if your project doesn't use `angular.json` file, you should leave the `angular` key empty as: angular: {},
+
 ## **Finally**,
 
-To concatenate every `project.config.json` into `nx.json`, `angular.json` and `tsconfig.json` files run the schematic command:
+To concatenate every `project.config.json` into `nx.json`, `workspace.json`, `angular.json` and `tsconfig.json` files run the schematic command:
 
 ```
 ng generate nx-config-splitter:merge
+
+or if you don't have ng-cli installed, use the default schematics command instead
+
+schematics nx-config-splitter:merge
 ```
 
 I recommend you to run this command before any `serve`, `build`, `generate` command to ensure you'll always have your configuration files updated.
@@ -74,7 +86,10 @@ export default function(schema: any): Rule {
     writeProjectConfigFiles(schema, 'libs', 'nx'),
     // If it is for app schematic use 'apps' folder
     writeProjectConfigFiles(schema, 'apps', 'angular', 'projects'),
-    writeProjectConfigFiles(schema, 'libs', 'tsconfig', 'compilerOptions.paths')
+    writeProjectConfigFiles(schema, 'libs', 'tsconfig', 'compilerOptions.paths'),
+
+    // For nx-react projects
+    writeProjectConfigFiles(schema, 'apps', 'workspace', 'projects'),
   ]);
 }
 ```
