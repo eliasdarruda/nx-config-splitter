@@ -13,6 +13,11 @@ describe('nx-config-splitter', () => {
         angularThings: true
       }
     },
+    workspace: {
+      project2: {
+        reactThings: true
+      }
+    },
     nx: {
       project1: {
         nxThings: false
@@ -83,6 +88,45 @@ describe('nx-config-splitter', () => {
 
         expect(projectsGenerated.someStuff).not.toBeUndefined();
         expect(mockConfig.angular).not.toEqual(projectsGenerated);
+      }
+    });
+  });
+
+  it('should generate new workspace json file', async () => {
+    const runner = new SchematicTestRunner('schematics', collectionPath);
+    const workspaceBaseFile = {
+      version: 1,
+      projects: {},
+    };
+  
+    testTree.create('workspace.base.json', JSON.stringify(workspaceBaseFile));
+
+    runner.runSchematicAsync('merge', {}, testTree).subscribe({
+      next: (tree) => {
+        const projectsGenerated = JSON.parse(tree.readContent('workspace.json')).projects;
+        
+        expect(mockConfig.workspace).toEqual(projectsGenerated);
+      }
+    });
+  });
+
+  it('should add new stuff to workspace json file', async () => {
+    const runner = new SchematicTestRunner('schematics', collectionPath);
+    const workspaceBaseFile = {
+      version: 1,
+      projects: {
+        someStuffWorkspace: {},
+      },
+    };
+  
+    testTree.create('workspace.base.json', JSON.stringify(workspaceBaseFile));
+
+    runner.runSchematicAsync('merge', {}, testTree).subscribe({
+      next: (tree) => {
+        const projectsGenerated = JSON.parse(tree.readContent('workspace.json')).projects;
+
+        expect(projectsGenerated.someStuff).not.toBeUndefined();
+        expect(mockConfig.workspace).not.toEqual(projectsGenerated);
       }
     });
   });

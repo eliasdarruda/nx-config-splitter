@@ -13,6 +13,10 @@ const configurationFiles = [
     key: 'projects'
   },
   {
+    name: 'workspace',
+    key: 'projects'
+  },
+  {
     name: 'nx',
     key: 'projects'
   },
@@ -24,6 +28,7 @@ const configurationFiles = [
 
 const projects: ProjectConfigFile = {
   angular: {},
+  workspace: {},
   nx: {},
   tsconfig: {}
 };
@@ -39,7 +44,6 @@ const matchesHandler = (tree: Tree, resolve: any) => {
 
     configurationFiles.forEach(c => {
       if (!tree.exists(c.name + baseSuffix)) {
-        console.warn(`Missing ${c.name + baseSuffix} file`);
         return;
       }
 
