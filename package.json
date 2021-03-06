@@ -20,7 +20,7 @@
   "license": "MIT",
   "schematics": "./src/collection.json",
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com/"
+    "registry": "https://registry.npmjs.org/"
   },
   "dependencies": {
     "@angular-devkit/core": "^9.1.12",

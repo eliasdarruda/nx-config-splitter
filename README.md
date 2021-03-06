@@ -55,18 +55,19 @@ Note that `workspace` key is used only on NX non-angular projects, if your proje
 To concatenate every `project.config.json` into `nx.json`, `workspace.json`, `angular.json` and `tsconfig.json` files run the schematic command:
 
 ```
-ng generate nx-config-splitter:merge
-
-or if you don't have ng-cli installed, use the default schematics command instead
-
 schematics nx-config-splitter:merge
 ```
+**NOTE**: if you don't have schematics installed, add `@angular-devkit/schematics` to your package dependencies
 
 I recommend you to run this command before any `serve`, `build`, `generate` command to ensure you'll always have your configuration files updated.
 
 ## Adding `project.config.json` in your projects automatically
 
 You need to use `writeProjectConfigFiles` function in a custom schematic after your lib/app generate schematic.
+
+Note that this is based on a custom schematic provided by NX, you can read more about it here: https://auth0.com/blog/create-custom-schematics-with-nx/
+
+
 
 ```TYPESCRIPT
 import { writeProjectConfigFiles } from 'nx-config-splitter';
