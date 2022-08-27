@@ -5,6 +5,9 @@
 
 This repository allows you to split your `angular.json`, `workspace.json`, `nx.json` and `tsconfig.json` into multiple files in many directories (apps, libs, etc). This is meant to avoid multiple lines of code on the same file and conflicts.
 
+### Package deprecated for NX v12+, you should take advantage of the builtin project.json splitting from NX.
+### For angular apps, this will become deprecated when this is merged https://github.com/angular/angular-cli/issues/22655
+
 ## Installation
 
 ```
